@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useFretboardStore } from '../stores/fretboardStore';
 import { useChordStore } from '../stores/chordStore';
 import { getNoteFromFret, getFretPositions } from '../utils/music';
@@ -9,7 +10,7 @@ const DOUBLE_DOTS = [12]; // 12th fret gets double dots
 
 export default function Fretboard() {
   const { selectedNotes, toggleNote } = useFretboardStore();
-  const { savedChords } = useChordStore();
+  const [showNoteLabels, setShowNoteLabels] = useState(true);
   
   const isNoteSelected = (string: number, fret: number): boolean => {
     return selectedNotes.some(note => note.string === string && note.fret === fret);
@@ -29,6 +30,12 @@ export default function Fretboard() {
           <div className="text-sm text-gray-300">
             Click notes to build chords
           </div>
+          <button
+            onClick={() => setShowNoteLabels(!showNoteLabels)}
+            className="px-3 py-1 text-xs font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
+            {showNoteLabels ? 'Hide Labels' : 'Show Labels'}
+          </button>
           <button 
             onClick={() => useFretboardStore.getState().clearSelection()}
             className="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -72,7 +79,7 @@ export default function Fretboard() {
               className="absolute top-4 bottom-4 bg-gray-300 shadow-sm"
               style={{ 
                 left: `${60 + position * scaleLength}px`,
-                width: '2px'
+                width: '3px'
               }}
             />
           ))}
@@ -127,9 +134,16 @@ export default function Fretboard() {
                   className="absolute w-12 h-8 flex items-center justify-center hover:bg-black/20 rounded transition-colors transform -translate-x-1/2"
                   style={{ left: '30px' }}
                 >
-                  <span className="text-xs text-yellow-200 font-medium z-10 relative">
-                    {getNoteFromFret(stringIndex, 0)}
-                  </span>
+                  {(showNoteLabels || isNoteSelected(stringIndex, 0)) && (
+                    <>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#422212' }}></div>
+                      </div>
+                      <span className="text-xs font-medium z-10 relative" style={{ color: '#f1f5f9', textShadow: '0 0 2px rgba(148, 163, 184, 0.8)' }}>
+                        {getNoteFromFret(stringIndex, 0)}
+                      </span>
+                    </>
+                  )}
                   {isNoteSelected(stringIndex, 0) && (
                     <div className="absolute inset-0 flex items-center justify-center z-0">
                       <div className="w-6 h-6 bg-blue-500 rounded-full border-2 border-blue-600 shadow-lg"></div>
@@ -152,9 +166,16 @@ export default function Fretboard() {
                       className="absolute w-12 h-8 flex items-center justify-center hover:bg-black/20 rounded transition-colors transform -translate-x-1/2"
                       style={{ left: `${60 + fretCenter * scaleLength}px` }}
                     >
-                      <span className="text-xs text-yellow-200 font-medium z-10 relative">
-                        {getNoteFromFret(stringIndex, fret)}
-                      </span>
+                      {(showNoteLabels || isNoteSelected(stringIndex, fret)) && (
+                        <>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#422212' }}></div>
+                          </div>
+                          <span className="text-xs font-medium z-10 relative" style={{ color: '#f1f5f9', textShadow: '0 0 2px rgba(148, 163, 184, 0.8)' }}>
+                            {getNoteFromFret(stringIndex, fret)}
+                          </span>
+                        </>
+                      )}
                       {isNoteSelected(stringIndex, fret) && (
                         <div className="absolute inset-0 flex items-center justify-center z-0">
                           <div className="w-6 h-6 bg-blue-500 rounded-full border-2 border-blue-600 shadow-lg"></div>
