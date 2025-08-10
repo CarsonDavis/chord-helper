@@ -17,12 +17,14 @@ export default function ChordLibrary() {
     if (!chordName.trim() || selectedNotes.length === 0) return;
     
     const { addChord } = useChordStore.getState();
-    addChord({
+    const newChord = {
       name: chordName.trim(),
       notes: selectedNotes,
       tags: chordTags.split(',').map(tag => tag.trim()).filter(Boolean),
       rootNote: selectedNotes[0]?.noteName
-    });
+    };
+    addChord(newChord);
+    loadChordNotes(newChord.notes);
     
     setChordName('');
     setChordTags('');

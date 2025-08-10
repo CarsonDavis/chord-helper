@@ -1,4 +1,5 @@
 import { useFretboardStore } from '../stores/fretboardStore';
+import { useChordStore } from '../stores/chordStore';
 import { getNoteFromFret, getFretPositions } from '../utils/music';
 
 const STRINGS = ['G', 'D', 'A', 'E']; // Bass strings from top to bottom (correct visual order)
@@ -8,6 +9,7 @@ const DOUBLE_DOTS = [12]; // 12th fret gets double dots
 
 export default function Fretboard() {
   const { selectedNotes, toggleNote } = useFretboardStore();
+  const { savedChords } = useChordStore();
   
   const isNoteSelected = (string: number, fret: number): boolean => {
     return selectedNotes.some(note => note.string === string && note.fret === fret);
@@ -23,8 +25,16 @@ export default function Fretboard() {
     <div className="bg-white p-6 rounded-lg shadow-sm border">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900">🎸 Bass Fretboard</h2>
-        <div className="text-sm text-gray-500">
-          Click notes to build chords
+        <div className="flex items-center gap-4">
+          <div className="text-sm text-gray-500">
+            Click notes to build chords
+          </div>
+          <button 
+            onClick={() => useFretboardStore.getState().clearSelection()}
+            className="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Clear
+          </button>
         </div>
       </div>
       

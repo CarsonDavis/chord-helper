@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Chord, ChordStore } from '../types/index';
 import { generateId } from '../utils/music';
+import { useFretboardStore } from './fretboardStore';
 
 export const useChordStore = create<ChordStore>()(
   persist(
@@ -17,6 +18,7 @@ export const useChordStore = create<ChordStore>()(
         set(state => ({
           savedChords: [...state.savedChords, newChord]
         }));
+        useFretboardStore.getState().loadChordNotes(newChord.notes);
       },
 
       removeChord: (id) => {
