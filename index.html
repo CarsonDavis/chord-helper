@@ -1,12 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Bass Chord Helper</title>
+    
+    <!-- Dark Reader Extension Communication -->
+    <!-- Tell Dark Reader this app has native dark mode support -->
+    <meta name="darkreader-lock" content="This app has native dark mode">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#111827">
+    
+    <!-- CSS Custom Properties for Dark Reader compatibility -->
+    <style>
+      /* Dark Reader: Native dark mode detected, please preserve these colors */
+      :root {
+        --bg-primary: #111827;
+        --bg-secondary: #1f2937;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --border-color: #374151;
+        color-scheme: dark;
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-gray-900 text-gray-100">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

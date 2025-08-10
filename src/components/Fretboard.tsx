@@ -22,11 +22,11 @@ export default function Fretboard() {
   const scaleLength = 800; // Total fretboard width in pixels
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border">
+    <div className="bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-700">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">🎸 Bass Fretboard</h2>
+        <h2 className="text-lg font-semibold text-gray-100">🎸 Bass Fretboard</h2>
         <div className="flex items-center gap-4">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-300">
             Click notes to build chords
           </div>
           <button 
@@ -45,7 +45,7 @@ export default function Fretboard() {
             {fretPositions.slice(1).map((position, index) => (
               <div
                 key={index + 1}
-                className="absolute text-xs text-gray-600 font-medium transform -translate-x-1/2"
+                className="absolute text-xs text-gray-300 font-medium transform -translate-x-1/2"
                 style={{ left: `${position * scaleLength}px` }}
               >
                 {index + 1}
@@ -55,7 +55,7 @@ export default function Fretboard() {
         </div>
         
         {/* Real Fretboard */}
-        <div className="bg-gradient-to-r from-amber-900 to-amber-800 rounded-lg p-4 relative overflow-x-auto" style={{ minWidth: `${60 + scaleLength}px` }}>
+        <div className="rounded-lg p-4 relative overflow-x-auto" style={{ minWidth: `${60 + scaleLength}px`, background: `linear-gradient(to right, #422212, #3a1e0f)` }}>
           {/* Nut - thick line between open strings and first fret */}
           <div
             className="absolute top-4 bottom-4 bg-gray-100 shadow-lg"
@@ -92,12 +92,12 @@ export default function Fretboard() {
               return (
                 <div key={fret} className="absolute transform -translate-x-1/2" style={{ left: `${fretCenter * scaleLength}px`, height: '100%' }}>
                   {hasDot && (
-                    <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full shadow-sm transform -translate-x-1/2 -translate-y-1/2" style={{ background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
                   )}
                   {hasDoubleDot && (
                     <>
-                      <div className="absolute w-3 h-3 bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2" style={{ top: '25%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
-                      <div className="absolute w-3 h-3 bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2" style={{ top: '75%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                      <div className="absolute w-3 h-3 rounded-full shadow-sm transform -translate-x-1/2" style={{ top: '25%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
+                      <div className="absolute w-3 h-3 rounded-full shadow-sm transform -translate-x-1/2" style={{ top: '75%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
                     </>
                   )}
                 </div>
@@ -115,7 +115,7 @@ export default function Fretboard() {
               />
               
               {/* String label */}
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 text-sm font-bold text-amber-100">
+              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 text-sm font-bold text-yellow-200">
                 {stringName}
               </div>
               
@@ -127,7 +127,7 @@ export default function Fretboard() {
                   className="absolute w-12 h-8 flex items-center justify-center hover:bg-black/20 rounded transition-colors transform -translate-x-1/2"
                   style={{ left: '30px' }}
                 >
-                  <span className="text-xs text-amber-100 font-medium z-10 relative">
+                  <span className="text-xs text-yellow-200 font-medium z-10 relative">
                     {getNoteFromFret(stringIndex, 0)}
                   </span>
                   {isNoteSelected(stringIndex, 0) && (
@@ -152,7 +152,7 @@ export default function Fretboard() {
                       className="absolute w-12 h-8 flex items-center justify-center hover:bg-black/20 rounded transition-colors transform -translate-x-1/2"
                       style={{ left: `${60 + fretCenter * scaleLength}px` }}
                     >
-                      <span className="text-xs text-amber-100 font-medium z-10 relative">
+                      <span className="text-xs text-yellow-200 font-medium z-10 relative">
                         {getNoteFromFret(stringIndex, fret)}
                       </span>
                       {isNoteSelected(stringIndex, fret) && (

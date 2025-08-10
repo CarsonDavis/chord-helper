@@ -58,7 +58,7 @@ export default function MiniFretboard({ notes, size = 'sm' }: MiniFretboardProps
   const stringEnd = nutPosition + fretboardWidth;
 
   return (
-    <div className={`${classes.container} bg-gradient-to-r from-amber-900 to-amber-800 rounded relative overflow-hidden`}>
+    <div className={`${classes.container} rounded relative overflow-hidden`} style={{ background: `linear-gradient(to right, #422212, #3a1e0f)` }}>
       {/* Nut */}
       <div
         className="absolute bg-gray-200"
@@ -99,12 +99,12 @@ export default function MiniFretboard({ notes, size = 'sm' }: MiniFretboardProps
           return (
             <div key={fret} className="absolute transform -translate-x-1/2" style={{ left: `${fretCenter * fretboardWidth}px`, height: '100%' }}>
               {hasDot && (
-                <div className={`absolute top-1/2 left-1/2 ${classes.fretDotSize} bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2 -translate-y-1/2`}></div>
+                <div className={`absolute top-1/2 left-1/2 ${classes.fretDotSize} rounded-full shadow-sm transform -translate-x-1/2 -translate-y-1/2`} style={{ background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
               )}
               {hasDoubleDot && (
                 <>
-                  <div className={`absolute ${classes.fretDotSize} bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2`} style={{ top: '25%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
-                  <div className={`absolute ${classes.fretDotSize} bg-amber-200 rounded-full shadow-sm transform -translate-x-1/2`} style={{ top: '75%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                  <div className={`absolute ${classes.fretDotSize} rounded-full shadow-sm transform -translate-x-1/2`} style={{ top: '25%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
+                  <div className={`absolute ${classes.fretDotSize} rounded-full shadow-sm transform -translate-x-1/2`} style={{ top: '75%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0, #cbd5e1)' }}></div>
                 </>
               )}
             </div>
